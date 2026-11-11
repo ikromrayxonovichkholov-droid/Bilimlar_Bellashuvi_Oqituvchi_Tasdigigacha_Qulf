@@ -1,0 +1,1 @@
+# Bilimlar_Bellashuvi_Oqituvchi_Tasdigigacha_Qulf
