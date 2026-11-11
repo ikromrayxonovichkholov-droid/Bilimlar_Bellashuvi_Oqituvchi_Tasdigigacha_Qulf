@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>9-sinf Informatika — Bilimlar bellashuvi</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0b132b 0%, #1c2541 50%, #3a506b 100%);
+            color: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .badge {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            letter-spacing: 1px;
+            margin-top: 5px;
+            margin-bottom: 12px;
+            color: #d1d5db;
+        }
+
+        .header-title {
+            font-size: 38px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-align: center;
+            margin-bottom: 6px;
+            text-shadow: 0 0 15px rgba(0, 180, 216, 0.5);
+        }
+
+        .subtitle {
+            font-size: 14px;
+            color: #9ca3af;
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .card {
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 16px;
+            padding: 28px 32px;
+            width: 100%;
+            max-width: 850px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+        }
+
+        /* 1-SAHIFA: FORMA */
+        .card-title {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 25px;
+            color: #ffffff;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .form-group.full-width {
+            grid-column: span 3;
+        }
+
+        label {
+            font-size: 13px;
+            font-weight: 600;
+            color: #e0e1dd;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px 16px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+            color: #ffffff;
+            font-size: 14px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        input::placeholder {
+            color: #7f8c8d;
+        }
+
+        input:focus, select:focus {
+            border-color: #00b4d8;
+            box-shadow: 0 0 10px rgba(0, 180, 216, 0.4);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        select option {
+            background-color: #1b263b;
+            color: #ffffff;
+        }
+
+        /* Yaltirash (pulsatsiya) effekti */
+        @keyframes pulseGlow {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 0 10px rgba(0, 180, 216, 0.4);
+            }
+            50% {
+                transform: scale(1.02);
+                box-shadow: 0 0 22px rgba(0, 180, 216, 0.8), 0 0 35px rgba(134, 227, 206, 0.6);
+            }
+            100% {
+                transform: scale(1);
+                box-shadow: 0 0 10px rgba(0, 180, 216, 0.4);
+            }
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 15px;
+            margin-top: 15px;
+            background: linear-gradient(90deg, #bbf2f6 0%, #86e3ce 50%, #7ee8fa 100%);
+            border: none;
+            border-radius: 14px;
+            color: #0d1b2a;
+            font-size: 18px;
+            font-weight: 800;
+            cursor: pointer;
+            animation: pulseGlow 2s infinite ease-in-out;
+        }
+
+        .footer-note {
+            font-size: 12px;
+            color: #a0aab2;
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        /* 2-SAHIFA: O'YIN TESTI */
+        #gamePage {
+            display: none;
+        }
+
+        .info-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .progress-bar-container {
+            width: 100%;
+            height: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 25px;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #ff4e50, #f9d423, #00e676);
+            border-radius: 10px;
+            transition: width 0.4s ease;
+        }
+
+        .task-title {
+            font-size: 14px;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            color: #facc15;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+
+        .question-text {
+            font-size: 20px;
+            font-weight: 600;
+            line-height: 1.5;
+            color: #ffffff;
+            margin-bottom: 25px;
+        }
+
+        .options-container {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            margin-bottom: 25px;
+        }
+
+        .option-btn {
+            width: 100%;
+            padding: 16px 20px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            color: #ffffff;
+            font-size: 16px;
+            font-weight: 600;
+            text-align: left;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            outline: none;
+        }
+
+        .option-btn:hover {
+            background: rgba(255, 255, 255, 0.12);
+            border-color: #00b4d8;
+        }
+
+        .option-btn.selected {
+            background: rgba(0, 180, 216, 0.3) !important;
+            border-color: #00b4d8 !important;
+        }
+
+        .match-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .match-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.03);
+            padding: 12px 16px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .match-label {
+            font-size: 16px;
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 20px;
+        }
+
+        .nav-btn {
+            padding: 12px 28px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            color: #ffffff;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .nav-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .nav-instruction {
+            font-size: 12px;
+            color: #9ca3af;
+            text-align: center;
+            flex-grow: 1;
+            padding: 0 10px;
+        }
+
+        /* 3-SAHIFA: YAKUNIY NATIJA */
+        #resultPage {
+            display: none;
+            text-align: center;
+        }
+
+        .result-trophy {
+            font-size: 40px;
+            margin-bottom: 10px;
+        }
+
+        .result-score {
+            font-size: 48px;
+            font-weight: 800;
+            color: #facc15;
+            margin: 15px 0;
+            text-shadow: 0 0 20px rgba(250, 204, 21, 0.4);
+        }
+
+        .result-msg {
+            font-size: 16px;
+            color: #e2e8f0;
+            margin-bottom: 25px;
+        }
+
+        .result-info-box {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 18px;
+            text-align: left;
+            margin-bottom: 30px;
+            display: inline-block;
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .result-info-box p {
+            margin-bottom: 8px;
+            font-size: 14px;
+            color: #cbd5e1;
+        }
+
+        .btn-restart {
+            width: 100%;
+            max-width: 500px;
+            padding: 16px;
+            background: linear-gradient(90deg, #bbf2f6 0%, #86e3ce 50%, #7ee8fa 100%);
+            border: none;
+            border-radius: 14px;
+            color: #0d1b2a;
+            font-size: 18px;
+            font-weight: 800;
+            cursor: pointer;
+            animation: pulseGlow 2s infinite ease-in-out;
+            margin-bottom: 15px;
+        }
+
+        .result-footer {
+            font-size: 12px;
+            color: #94a3b8;
+        }
+
+        .teacher-note {
+            color: #facc15;
+            font-size: 14px;
+            line-height: 1.5;
+            margin: 12px auto 18px;
+            max-width: 500px;
+        }
+
+        @media (max-width: 768px) {
+            .form-grid { grid-template-columns: 1fr; }
+            .form-group.full-width { grid-column: span 1; }
+            .match-row { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="badge">🛡️ 9-SINF • INFORMATIKA • 2-CHORAK</div>
+    <h1 class="header-title">✨ BILIMLAR BELLASHUVI ✨</h1>
+    <p class="subtitle">31 ta topshiriq · Test va moslashtirish · Har bir to'g'ri javob uchun qarsak!</p>
+
+    <!-- 1-SAHIFA: MA'LUMOT KIRITISH -->
+    <div class="card" id="startPage">
+        <h2 class="card-title">Ishtirokchi ma'lumotlari</h2>
+        <form id="startForm">
+            <div class="form-grid">
+                <div class="form-group">
+                    <label>Viloyat</label>
+                    <input type="text" id="regionInput" placeholder="Masalan: Andijon viloyati" required>
+                </div>
+                <div class="form-group">
+                    <label>Tuman / shahar</label>
+                    <input type="text" id="districtInput" placeholder="Tuman yoki shahar nomi" required>
+                </div>
+                <div class="form-group">
+                    <label>Maktab</label>
+                    <input type="text" id="schoolInput" placeholder="Maktab raqami yoki nomi" required>
+                </div>
+            </div>
+
+            <div class="form-group" style="margin-bottom: 20px;">
+                <label>Sinf</label>
+                <select id="classSelect" required>
+                    <option value="9-A">9-A</option>
+                    <option value="9-B">9-B</option>
+                    <option value="9-D">9-D</option>
+                    <option value="9-E">9-E</option>
+                </select>
+            </div>
+
+            <div class="form-group full-width" style="margin-bottom: 20px;">
+                <label>Familiyasi va ismi</label>
+                <input type="text" id="fullnameInput" placeholder="Familiya, ism" required>
+            </div>
+
+            <button type="submit" class="btn-submit">🚀 O‘yinni boshlash</button>
+
+            <p class="footer-note">
+                Ovoz effektlari qurilmangizda ishlashi uchun o‘yinni boshlash tugmasini bosing. Ovoz balandligini qurilmadan boshqarishingiz mumkin.
+            </p>
+        </form>
+    </div>
+
+    <!-- 2-SAHIFA: O'YIN TESTI VA MOSLASHTIRISH -->
+    <div class="card" id="gamePage">
+        <div class="info-bar">
+            <span class="user-name" id="displayUserName">Ishtirokchi</span>
+            <span class="progress-text" id="progressText">1 / 31</span>
+            <span class="score-text" id="scoreText">0 ball</span>
+        </div>
+
+        <div class="progress-bar-container">
+            <div class="progress-bar-fill" id="progressBar"></div>
+        </div>
+
+        <div class="task-title" id="taskTitle">TOPSHIRIQ 1</div>
+        <div class="question-text" id="questionText">Savol yuklanmoqda...</div>
+
+        <div class="options-container" id="optionsContainer"></div>
+        <div class="match-container" id="matchContainer" style="display: none;"></div>
+
+        <div class="nav-buttons">
+            <button class="nav-btn" id="prevBtn" onclick="prevQuestion()">← Orqaga</button>
+            <span class="nav-instruction" id="navInstruction">Javobni belgilang. Testlarda bitta, moslashtirish topshirig‘ida esa har bir qatorda mos javobni tanlang.</span>
+            <button class="nav-btn" id="nextBtn" onclick="nextQuestion()">Keyingi →</button>
+        </div>
+    </div>
+
+    <!-- 3-SAHIFA: YAKUNIY NATIJA -->
+    <div class="card" id="resultPage">
+        <div class="result-trophy">🏆</div>
+        <h2 class="card-title" style="margin-bottom: 5px;">Bellashuv yakunlandi!</h2>
+        <div class="result-score" id="finalScoreDisplay">31 / 31 (100%)</div>
+        <p class="result-msg" id="resultMessage">Ajoyib natija! Siz mavzularni juda yaxshi o‘zlashtirgansiz.</p>
+        
+        <div class="result-info-box">
+            <p><strong>Ishtirokchi:</strong> <span id="resName">---</span></p>
+            <p><strong>Hudud:</strong> <span id="resRegion">---</span></p>
+            <p><strong>Maktab:</strong> <span id="resSchool">---</span></p>
+            <p style="margin-top: 10px; font-size: 13px; color: #94a3b8;">Har bir to‘g‘ri topshiriq uchun 1 ball beriladi. Jami 31 ta topshiriq.</p>
+        </div>
+
+        <p class="teacher-note">🔒 Natija saqlandi. Testni qayta boshlash uchun o‘qituvchi tasdig‘i kerak.</p>
+        <div>
+            <button class="btn-restart" onclick="teacherUnlock()">🔑 O‘qituvchi uchun ochish</button>
+        </div>
+        <p class="result-footer">Bilim — eng yorqin g‘alaba! ✨</p>
+    </div>
+
+    <!-- QARSAK OVOZI -->
+    <audio id="applauseSound" src="https://www.myinstants.com/media/sounds/applause.mp3" preload="auto"></audio>
+
+    <script>
+        // Aniq 30 ta savoldan iborat baza
+        const questions = [
+            {
+                type: "test",
+                q: "Kommunikatsiya dasturlari nima uchun xizmat qiladi?",
+                options: ["A. Rasm chizish uchun", "B. Axborot almashish uchun", "C. Hisob-kitob qilish uchun", "D. Kompyuterni ta’mirlash uchun"],
+                correct: 1
+            },
+            {
+                type: "test",
+                q: "Quyidagilardan qaysi biri kommunikatsiya dasturiga kiradi?",
+                options: ["A. Telegram", "B. Paint", "C. Kalkulyator", "D. Bloknot"],
+                correct: 0
+            },
+            {
+                type: "test",
+                q: "Axborotni ekranga chiqarib beruvchi qurilma nima deb ataladi?",
+                options: ["A. Sichqoncha", "B. Tizim bloki", "C. Monitor", "D. Mantiqiy blok"],
+                correct: 2
+            },
+            {
+                type: "test",
+                q: "Fayllarni guruhlash va tartib bilan saqlash uchun nimadan foydalaniladi?",
+                options: ["A. Papka (Papkalar)", "B. Skaner", "C. Mikrofon", "D. Protsessor"],
+                correct: 0
+            },
+            {
+                type: "test",
+                q: "Klaviaturadagi Shift tugmasi odatda qaysi vazifani bajaradi?",
+                options: ["A. Harflarni vaqtincha katta harfida kiritish yoki yuqori belgini yozish", "B. Kompyuterni o‘chirib qo‘yish", "C. Matnni chop etish", "D. Faylni saqlash"],
+                correct: 0
+            },
+            {
+                type: "test",
+                q: "Kommunikatsiya dasturlaridan foydalanishda nimaga e’tibor berish kerak?",
+                options: ["A. Noma’lum fayllarni yuklashga", "B. Shaxsiy ma’lumotlar xavfsizligiga", "C. Har qanday havolani ochishga", "D. Parolni hammaga aytishga"],
+                correct: 1
+            },
+            {
+                type: "match",
+                q: "Quyidagi moslashtirishda qurilma va uning vazifasini to‘g‘ri juftlang.",
+                pairs: [
+                    { label: "Klaviatura", answer: "Ma'lumot kiritish" },
+                    { label: "Monitor", answer: "Ma'lumotni chiqarish" },
+                    { label: "Printer", answer: "Qog'ozga chop etish" }
+                ],
+                optionsPool: ["Javobni tanlang", "Ma'lumot kiritish", "Ma'lumotni chiqarish", "Qog'ozga chop etish", "Ovoz yozish"]
+            },
+              {
+                type: "match",
+                q: "Quyidagi moslashtirishda ma`lumotlarni boşqariş dastirlarini va ularning vazifasini töğri juftlang.",
+                pairs: [
+                    { label: "Sörovnomalar", answer: "ma`lumotlarni töplash" },
+                    { label: "Manzillar röyxati", answer: "ma`lumotlarni töplash" },
+                    { label: "Maktab hisobotlari", answer: "öquvçilarga oid hisobotlar" },
+                    { label: "Maktab kutubxonalar", answer: "ISBN-International Standard Book Number" }
+                ],
+                optionsPool: ["Javobni tanlang", "ma`lumotlarni töplash", "ma`lumotlarni töplash", "öquvçilarga oid hisobotlar", "International Standard Book Number"]
+            },
+            {
+                type: "test",
+                q: "Internet orqali masofadan muloqot qilish vositasi qaysi?",
+                options: ["A. Microsoft Excel", "B. Zoom", "C. Paint", "D. WinRAR"],
+                correct: 1
+            },
+            {
+                type: "test",
+                q: "Ma`lumotlarni boşqariş dasturlarida yangi soha kirib keldi,u qanday nomlanadi?",
+                options: ["A. DA-Data analysis", "B.So`rovnomalar", "C.Manzillar ro`yxati", "D.Maktab kutubxonasi"],
+                correct: 0
+            },
+            {
+                type: "test",
+                q: "Brauzerning asosiy vazifasi nima?",
+                options: ["A. Internet sahifalarini ko‘rish", "B. Matnni chop etish", "C. Rasmni bo‘yash", "D. Fayllarni arxivlash"],
+                correct: 0
+            },
+            {
+                type: "test",
+                q: "Quyidagilardan qaysi biri veb-brauzer?",
+                options: ["A. Google Chrome", "B. Microsoft Word", "C. PowerPoint", "D. Calculator"],
+                correct: 0
+            },
+            {
+                type: "test",
+                q: "Videokonferensiya nima?",
+                options: ["A. Masofadan turib video orqali muloqot qilish", "B. Rasmni tahrirlash", "C. Faylni o‘chirish", "D. Matnni tarjima qilish"],
+                correct: 0
+            },
+            {
+                type: "test",
+                q: "Kompyuter tarmog‘i nima?",
+                options: ["A. Bitta monitor", "B. Operatsion tizim", "C. Matn muharriri", "D. Bir-biriga ulangan kompyuterlar tizimi"],
+                correct: 3
+            },
+            {
+                type: "test",
+                q: "Internet orqali fayl yuborish uchun qaysi vositadan foydalanish mumkin?",
+                options: ["A. Diskni formatlash", "B. Kalkulyator", "C. Elektron pochta", "D. Paint"],
+                correct: 2
+            },
+            {
+                type: "test",
+                q: "Elektron pochta qanday maqsadda ishlatiladi?",
+                options: ["A. Video montaj qilish", "B. Elektron xabar yuborish va qabul qilish", "C. Jadval chizish", "D. O‘yin yaratish"],
+                correct: 1
+            },
+            {
+                type: "test",
+                q: "Axborot xavfsizligini ta'minlash uchun nima qilish kerak?",
+                options: ["A. Murakkab parol qo'yish", "B. Parolni hammaga berish", "C. Kompyuterni ochiq qoldirish", "D. Antivirusni o'chirish"],
+                correct: 0
+            },
+            {
+                type: "test",
+                q: "Lokal tarmoq nima?",
+                options: ["A. Butun dunyoni bog'lovchi tarmoq", "B. Kichik hududdagi (maktab, xona) kompyuterlar tarmog'i", "C. Telefon tarmog'i", "D. Kosmik aloqa tarmog'i"],
+                correct: 1
+            },
+            {
+                type: "test",
+                q: "Global tarmoq deganda nimani tushunasiz?",
+                options: ["A. Internet", "B. Faqat bitta maktab kompyuterlari", "C. Printer va kompyuter aloqasi", "D. Fleshka va kompyuter"],
+                correct: 0
+            },
+            {
+                type: "test",
+                q: "Qidiruv tizimiga misol keltiring:",
+                options: ["A. Google", "B. Microsoft Word", "C. Paint", "D. Notepad"],
+                correct: 0
+            },
+            {
+                type: "test",
+                q: "Axborotni qog'ozdan kompyuterga kiritish uchun qaysi qurilma ishlatiladi?",
+                options: ["A. Skaner", "B. Printer", "C. Kolonka", "D. Naushnik"],
+                correct: 0
+            },
+            {
+                type: "test",
+                q: "Gipermatn (hyperlink) nima?",
+                options: ["A. Boshqa sahifaga o'tish uchun imkon beruvchi matn yoki rasm", "B. Oddiy o'chib ketadigan matn", "C. Matn muharriri", "D. Xatolik xabari"],
+                correct: 0
+            },
+            {
+                type: "test",
+                q: "Axborotni tashqi xotirada saqlash uchun nima ishlatiladi?",
+                options: ["A. Qattiq disk (HDD/SSD) yoki Fleshka", "B. Klaviatura", "C. Sichqoncha", "D. Monitor"],
+                correct: 0
+            },
+            {
+                type: "test",
+                q: "Wi-Fi texnologiyasi nima uchun xizmat qiladi?",
+                options: ["A. Simmetrik simli ulanish uchun", "B. Simsiz internet aloqasi uchun", "C. Matn chop etish uchun", "D. Ovoz yozish uchun"],
+                correct: 1
+            },
+            {
+                type: "test",
+                q: "Antivirus dasturining vazifasi nima?",
+                options: ["A. Kompyuterni viruslardan himoya qilish va tozalash", "B. O'yin o'ynash", "C. Internet tezligini oshirish", "D. Rasmlarni chizish"],
+                correct: 0
+            },
+            {
+                type: "test",
+                q: "Pach-cord (tarmoq kabeli) nima uchun kerak?",
+                options: ["A. Kompyuterni tarmoqqa simli ulash uchun", "B. Zaryad olish uchun", "C. Ekran yorug'ligini boshqarish uchun", "D. Musiqa eshitish uchun"],
+                correct: 0
+            },
+            {
+                type: "test",
+                q: "Fayl kengaytmasi (rozshireniye) nima uchun kerak?",
+                options: ["A. Fayl turini aniqlash uchun", "B. Fayl hajmini kichraytirish uchun", "C. Faylni chiroyli qilish uchun", "D. Internetga chiqarish uchun"],
+                correct: 0
+            },
+            {
+                type: "test",
+                q: "Axborotni taqdim etish shakllari qaysilar?",
+                options: ["A. Matnli, sonli, grafik, tovushli", "B. Faqat qora va oq", "C. Faqat raqamli", "D. Faqat tovushli"],
+                correct: 0
+            },
+            {
+                type: "test",
+                q: "CPU (Protsessor) kompyuterda nima ish bajaradi?",
+                options: ["A. Ma'lumotlarni qayta ishlaydi va hisob-kitob qiladi", "B. Ma'lumotni ekranga chiqaradi", "C. Ovoz chiqaradi", "D. Faqat saqlaydi"],
+                correct: 0
+            },
+            {
+                type: "test",
+                q: "Operativ xotira (RAM) qanday vazifani bajaradi?",
+                options: ["A. Vaqtinchalik ma'lumotlarni saqlash", "B. Doimiy ravishda dasturlarni yillar davomida saqlash", "C. Internetga ulanish", "D. Printer bilan ishlash"],
+                correct: 0
+            },
+            {
+                type: "test",
+                q: "Informatika fani nimani o'rganadi?",
+                options: ["A. Axborotni yig'ish, saqlash, qayta ishlash va uzatish usullarini", "B. Faqat o'yin o'ynashni", "C. Mashinalarni tuzilishini", "D. Faqat rasm chizishni"],
+                correct: 0
+            }
+        ];
+
+        let currentIndex = 0;
+        let userAnswers = {}; 
+        let userInfo = { name: "", region: "", district: "", school: "", classVal: "" };
+
+        // O‘qituvchi PIN-kodi. Zarur bo‘lsa, shu qiymatni o‘zingiz almashtiring.
+        const TEACHER_PIN = "USTOZ2026";
+        const LOCK_STORAGE_KEY = "bilimlarBellashuviLockedResult_v1";
+
+        document.getElementById('startForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            userInfo.name = document.getElementById('fullnameInput').value;
+            userInfo.region = document.getElementById('regionInput').value;
+            userInfo.district = document.getElementById('districtInput').value;
+            userInfo.school = document.getElementById('schoolInput').value;
+            userInfo.classVal = document.getElementById('classSelect').value;
+
+            document.getElementById('displayUserName').innerText = userInfo.name;
+
+            document.getElementById('startPage').style.display = 'none';
+            document.getElementById('resultPage').style.display = 'none';
+            document.getElementById('gamePage').style.display = 'block';
+
+            currentIndex = 0;
+            userAnswers = {};
+            updateLiveScore();
+            loadQuestion(currentIndex);
+        });
+
+        function loadQuestion(index) {
+            const qData = questions[index];
+            document.getElementById('taskTitle').innerText = "TOPSHIRIQ " + (index + 1);
+            document.getElementById('questionText').innerText = qData.q;
+            document.getElementById('progressText').innerText = (index + 1) + " / " + questions.length;
+            
+            const percent = ((index + 1) / questions.length) * 100;
+            document.getElementById('progressBar').style.width = percent + "%";
+
+            const nextBtn = document.getElementById('nextBtn');
+            if (index === questions.length - 1) {
+                nextBtn.innerText = "Natijani ko'rish 🏆";
+            } else {
+                nextBtn.innerText = "Keyingi →";
+            }
+
+            document.getElementById('prevBtn').style.visibility = (index === 0) ? 'hidden' : 'visible';
+
+            const optionsContainer = document.getElementById('optionsContainer');
+            const matchContainer = document.getElementById('matchContainer');
+
+            optionsContainer.innerHTML = "";
+            matchContainer.innerHTML = "";
+
+            if (qData.type === "test") {
+                optionsContainer.style.display = "flex";
+                matchContainer.style.display = "none";
+
+                qData.options.forEach((opt, idx) => {
+                    const button = document.createElement('button');
+                    button.className = 'option-btn';
+                    button.innerText = opt;
+                    
+                    if (userAnswers[index] === idx) {
+                        button.classList.add('selected');
+                    }
+
+                    button.onclick = function() {
+                        const allBtns = optionsContainer.querySelectorAll('.option-btn');
+                        allBtns.forEach(b => b.classList.remove('selected'));
+                        
+                        button.classList.add('selected');
+                        userAnswers[index] = idx; 
+
+                        if (idx === qData.correct) {
+                            playApplause();
+                        }
+                        updateLiveScore();
+                    };
+                    optionsContainer.appendChild(button);
+                });
+
+            } else if (qData.type === "match") {
+                optionsContainer.style.display = "none";
+                matchContainer.style.display = "flex";
+
+                if (!userAnswers[index]) {
+                    userAnswers[index] = {};
+                }
+
+                qData.pairs.forEach((pair, pIdx) => {
+                    const row = document.createElement('div');
+                    row.className = 'match-row';
+
+                    const lbl = document.createElement('div');
+                    lbl.className = 'match-label';
+                    lbl.innerText = pair.label;
+
+                    const select = document.createElement('select');
+                    
+                    qData.optionsPool.forEach(optText => {
+                        const opt = document.createElement('option');
+                        opt.value = optText;
+                        opt.innerText = optText;
+                        if (userAnswers[index][pIdx] === optText) {
+                            opt.selected = true;
+                        }
+                        select.appendChild(opt);
+                    });
+
+                    select.onchange = function() {
+                        userAnswers[index][pIdx] = select.value;
+                        
+                        let allCorrect = true;
+                        qData.pairs.forEach((p, i) => {
+                            if (userAnswers[index][i] !== p.answer) allCorrect = false;
+                        });
+                        if (allCorrect) {
+                            playApplause();
+                        }
+                        updateLiveScore();
+                    };
+
+                    row.appendChild(lbl);
+                    row.appendChild(select);
+                    matchContainer.appendChild(row);
+                });
+            }
+        }
+
+        function updateLiveScore() {
+            let currentScore = 0;
+            questions.forEach((q, idx) => {
+                if (q.type === "test") {
+                    if (userAnswers[idx] === q.correct) currentScore++;
+                } else if (q.type === "match") {
+                    if (userAnswers[idx]) {
+                        let matchOk = true;
+                        q.pairs.forEach((p, pIdx) => {
+                            if (userAnswers[idx][pIdx] !== p.answer) matchOk = false;
+                        });
+                        if (matchOk) currentScore++;
+                    }
+                }
+            });
+            document.getElementById('scoreText').innerText = currentScore + " ball";
+        }
+
+        function nextQuestion() {
+            if (currentIndex < questions.length - 1) {
+                currentIndex++;
+                loadQuestion(currentIndex);
+            } else {
+                showResults();
+            }
+        }
+
+        function prevQuestion() {
+            if (currentIndex > 0) {
+                currentIndex--;
+                loadQuestion(currentIndex);
+            }
+        }
+
+        function playApplause() {
+            const sound = document.getElementById('applauseSound');
+            sound.currentTime = 0;
+            sound.play().catch(e => console.log("Audio xatosi:", e));
+        }
+
+        function showResults() {
+            let totalScore = 0;
+
+            questions.forEach((q, idx) => {
+                if (q.type === "test") {
+                    if (userAnswers[idx] === q.correct) {
+                        totalScore += 1;
+                    }
+                } else if (q.type === "match") {
+                    if (userAnswers[idx]) {
+                        let matchOk = true;
+                        q.pairs.forEach((pair, pIdx) => {
+                            if (userAnswers[idx][pIdx] !== pair.answer) {
+                                matchOk = false;
+                            }
+                        });
+                        if (matchOk) {
+                            totalScore += 1; 
+                        }
+                    }
+                }
+            });
+
+            let percentage = Math.round((totalScore / questions.length) * 100);
+
+            document.getElementById('finalScoreDisplay').innerText = totalScore + " / " + questions.length + " (" + percentage + "%)";
+            document.getElementById('resName').innerText = userInfo.name + " (" + userInfo.classVal + ")";
+            document.getElementById('resRegion').innerText = userInfo.region + ", " + userInfo.district;
+            document.getElementById('resSchool').innerText = userInfo.school;
+
+            document.getElementById('gamePage').style.display = 'none';
+            document.getElementById('startPage').style.display = 'none';
+            document.getElementById('resultPage').style.display = 'block';
+
+            // Yakuniy natijani brauzerda saqlaymiz: sahifa yangilansa ham qulf ochilmaydi.
+            const lockedResult = {
+                score: document.getElementById('finalScoreDisplay').innerText,
+                message: document.getElementById('resultMessage').innerText,
+                name: document.getElementById('resName').innerText,
+                region: document.getElementById('resRegion').innerText,
+                school: document.getElementById('resSchool').innerText
+            };
+            localStorage.setItem(LOCK_STORAGE_KEY, JSON.stringify(lockedResult));
+        }
+
+        function teacherUnlock() {
+            const enteredPin = prompt("O‘qituvchi PIN-kodini kiriting:");
+            if (enteredPin === null) return;
+
+            if (enteredPin === TEACHER_PIN) {
+                localStorage.removeItem(LOCK_STORAGE_KEY);
+                alert("Tasdiqlandi. Yangi o‘quvchi testni boshlashi mumkin.");
+                window.location.reload();
+            } else {
+                alert("PIN-kod noto‘g‘ri. Natija qulflangan holda qoladi.");
+            }
+        }
+
+        // Sahifa qayta ochilganda yoki yangilanganda tugallangan test natijasini tiklaymiz.
+        (function restoreLockedResult() {
+            const saved = localStorage.getItem(LOCK_STORAGE_KEY);
+            if (!saved) return;
+
+            try {
+                const result = JSON.parse(saved);
+                document.getElementById('finalScoreDisplay').innerText = result.score;
+                document.getElementById('resultMessage').innerText = result.message;
+                document.getElementById('resName').innerText = result.name;
+                document.getElementById('resRegion').innerText = result.region;
+                document.getElementById('resSchool').innerText = result.school;
+                document.getElementById('startPage').style.display = 'none';
+                document.getElementById('gamePage').style.display = 'none';
+                document.getElementById('resultPage').style.display = 'block';
+            } catch (error) {
+                localStorage.removeItem(LOCK_STORAGE_KEY);
+            }
+        })();
+    </script>
+</body>
+</html>
